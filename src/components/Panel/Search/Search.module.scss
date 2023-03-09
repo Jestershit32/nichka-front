@@ -1,0 +1,54 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.Search {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	width: 100%;
+	gap: 20px;
+	position: relative;
+}
+.InputBlock {
+	display: flex;
+	align-items: center;
+	background-color: color.$light;
+	border-radius: 10px;
+	padding: 5px 10px;
+	gap: 5px;
+	@include params.input-shadow;
+}
+
+.Input {
+	width: 300px;
+	outline: none;
+	background: none;
+	border: none;
+	color: color.$dark;
+	@include font.input;
+}
+.Ico {
+	width: 25px;
+	height: 25px;
+	object-fit: cover;
+}
+@media (width<=1000px) {
+	.Input {
+		width: 120px;
+	}
+}
+@media (width<=780px) {
+	.Ico {
+		width: 20px;
+		height: 20px;
+	}
+	.Input {
+		width: 100%;
+		@include font.input-mob;
+	}
+	.InputBlock {
+		justify-content: space-between;
+		width: 100%;
+	}
+}

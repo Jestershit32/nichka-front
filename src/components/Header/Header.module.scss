@@ -1,0 +1,26 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.Header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 90px;
+	@include params.padding;
+}
+.logo {
+	min-width: 120px;
+	max-width: 780px;
+	width: 100%;
+}
+@media (width<=780px) {
+	.logo {
+		width: 200px;
+	}
+	.Header {
+		flex-direction: column;
+		gap: 20px;
+		@include params.padding-mob;
+	}
+}

@@ -1,0 +1,24 @@
+@mixin H {
+	font-family: "Abosanova Regular";
+	font-size: 40px;
+}
+@mixin H-mob {
+	font-family: "Abosanova Regular";
+	font-size: 26px;
+}
+@mixin span {
+	font-family: "Comfortaa Bold";
+	font-size: 18px;
+}
+@mixin input {
+	font-family: "Comfortaa Regular";
+	font-size: 16px;
+}
+@mixin input-mob {
+	font-family: "Comfortaa Regular";
+	font-size: 14px;
+}
+@mixin span-little {
+	font-family: "Comfortaa Bold";
+	font-size: 14px;
+}

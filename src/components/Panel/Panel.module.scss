@@ -1,0 +1,40 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.PanelBlock {
+	@include params.padding;
+	width: 100%;
+	margin: 35px 0px;
+}
+.Panel {
+	width: 100%;
+	min-height: 60px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 33px;
+	border-radius: 20px;
+	background-color: color.$dark;
+	position: relative;
+}
+.PanelBack {
+	color: color.$light;
+	@include font.span;
+
+	&:hover {
+		cursor: pointer;
+		opacity: 0.4;
+	}
+}
+@media (width<=780px) {
+	.PanelBlock {
+		padding: 0px;
+	}
+	.Panel {
+		border-radius: 0px;
+	}
+	.PanelBack {
+		@include font.span-little;
+	}
+}

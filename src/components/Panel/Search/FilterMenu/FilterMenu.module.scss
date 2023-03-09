@@ -1,0 +1,37 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.FilterMenu {
+	position: absolute;
+	background-color: color.$dark;
+	top: 60px;
+	right: -35px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 20px;
+	padding: 15px;
+	// align-items: start;
+	color: color.$light;
+	@include font.span-little;
+	gap: 15px;
+}
+.filterItem {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	&:hover {
+		cursor: pointer;
+		opacity: 0.8;
+	}
+}
+.itemSelect {
+	padding: 2px;
+	outline: none;
+	background: color.$dark;
+	border: none;
+	border-radius: 0px;
+	color: color.$light;
+	@include font.input;
+}

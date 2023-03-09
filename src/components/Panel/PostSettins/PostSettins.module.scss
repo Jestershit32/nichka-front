@@ -1,0 +1,31 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.PostSettins {
+	display: flex;
+	gap: 15px;
+	align-items: center;
+}
+.active {
+	display: flex !important;
+}
+.toggler {
+	display: none;
+}
+@media (width<1300px) {
+	.toggler {
+		display: block;
+	}
+	.PostSettins {
+		display: none;
+		position: absolute;
+		top: 60px;
+		right: 0px;
+		flex-direction: column;
+		background-color: color.$dark;
+		border-radius: 20px;
+		padding: 15px;
+		align-items: start;
+	}
+}

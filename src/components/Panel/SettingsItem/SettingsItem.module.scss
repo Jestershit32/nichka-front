@@ -1,0 +1,35 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.SettingsItem {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	color: color.$light;
+	background-color: color.$dark;
+	border-radius: 10px;
+	&:hover {
+		cursor: pointer;
+		transition-duration: 0.5s;
+		opacity: 0.4;
+	}
+}
+.icon {
+	object-fit: cover;
+	width: 36px;
+	height: 36px;
+}
+.name {
+	@include font.span;
+}
+@media (width<=780px) {
+	.name {
+		@include font.span-little;
+	}
+	.icon {
+		object-fit: cover;
+		width: 20px;
+		height: 20px;
+	}
+}

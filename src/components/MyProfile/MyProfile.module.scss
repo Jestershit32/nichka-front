@@ -1,0 +1,92 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.MyProfile {
+	border-radius: 30px;
+	padding: 10px 12px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	background-color: color.$dark;
+	color: color.$light;
+}
+
+.Avatar {
+	transition-duration: 0.5s;
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+	background-size: cover;
+	object-fit: cover;
+}
+.NameBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 15;
+	@include font.span;
+}
+.BlockBottom {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+}
+.BlockUp {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	border-radius: 30px;
+
+	cursor: pointer;
+	&:hover .Avatar {
+		@include params.light;
+	}
+	&:hover + .BlockBottom {
+		display: flex;
+	}
+}
+.bottomText {
+	@include font.span-little;
+}
+.Nikblock {
+	display: flex;
+	align-items: flex-end;
+	gap: 2px;
+}
+.RuleIcon {
+	width: 20px;
+	height: 20px;
+}
+.exit {
+	&:hover {
+		cursor: pointer;
+		text-decoration: underline;
+	}
+}
+
+@media (width<=780px) {
+	.Avatar {
+		width: 36px;
+		height: 36px;
+	}
+	.NameBlock {
+		display: flex;
+		flex-direction: column;
+		gap: 15;
+		@include font.span-little;
+	}
+	.BlockBottom {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+	}
+}
+
+@media (width<=320px) {
+	.BlockBottom {
+		display: none;
+	}
+}

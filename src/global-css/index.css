@@ -1,0 +1,33 @@
+@import-normalize;
+
+@font-face {
+	font-family: "Abosanova Regular";
+	src: url(./fonts/abosanova.ttf);
+}
+@font-face {
+	font-family: "Abosanova bold";
+	src: url(./fonts/abosanovabold.ttf);
+}
+@font-face {
+	font-family: "Comfortaa Bold";
+	src: url(./fonts/Comfortaa-Bold.ttf);
+}
+@font-face {
+	font-family: "Comfortaa Regular";
+	src: url(./fonts/Comfortaa-Regular.ttf);
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+*::selection {
+	background-color: #fff;
+	color: #191825;
+}
+input::selection {
+	background-color: #191825;
+	color: #fff;
+}
