@@ -1,0 +1,21 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.PostInfo {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.InfoMiniBlock {
+	align-items: flex-end;
+	color: color.$light;
+	padding: 10px 20px;
+	background-color: color.$dark;
+	border-radius: 20px;
+	display: flex;
+	justify-content: space-between;
+	@include params.shadow;
+	@include font.span-little;
+	gap: 100px;
+}

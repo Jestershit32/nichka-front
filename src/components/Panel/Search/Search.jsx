@@ -24,9 +24,7 @@ export const Search = () => {
 
 	const handlerValue = (event) => {
 		setSearchValue(event.target.value)
-
 	}
-
 
 
 	return (

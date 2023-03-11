@@ -1,19 +1,22 @@
 
 import styles from "./FilterMenu.module.scss"
 import iconON from "./icon/on.svg"
-// import iconOFF from "./icon/off.svg"
+import iconOFF from "./icon/off.svg"
 
 
 export const FilterMenu = () => {
 
-	const  = true;
+	const rad = false;
+
 
 	return (
 		<div className={styles.FilterMenu}>
 			<div className={styles.filterItem}>
 				<span className={styles.ItemName}>Самые новые</span>
-				<img className={styles.Itemicon} src={iconON} alt="" />
+				<img className={styles.Itemicon} src={rad ? iconON : iconOFF} alt="" />
 			</div>
+
+
 			<div className={styles.filterItem}>
 				<span className={styles.ItemName}>Самые старое</span>
 				<img className={styles.Itemicon} src={iconON} alt="" />

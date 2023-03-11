@@ -2,6 +2,11 @@
 @use "src/global-css/color";
 @use "src/global-css/params";
 
+.PanelSettings {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+}
 .PostSettins {
 	display: flex;
 	gap: 15px;
@@ -20,12 +25,13 @@
 	.PostSettins {
 		display: none;
 		position: absolute;
-		top: 60px;
-		right: 0px;
+		top: 65px;
+		right: 10px;
 		flex-direction: column;
 		background-color: color.$dark;
 		border-radius: 20px;
 		padding: 15px;
 		align-items: start;
+		@include params.shadow;
 	}
 }

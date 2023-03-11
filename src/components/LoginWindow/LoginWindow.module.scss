@@ -1,0 +1,86 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.LoginWindow {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+.Window {
+	padding: 35px 30px;
+	display: flex;
+	flex-direction: column;
+	gap: 35px;
+	background-color: color.$dark;
+	border-radius: 20px;
+}
+.H1 {
+	text-align: center;
+	@include font.H;
+	color: color.$light;
+}
+.Form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding: 0px 50px;
+}
+.TextBlock {
+	display: flex;
+	align-items: center;
+	background-color: color.$light;
+	border-radius: 10px;
+	padding: 5px 10px;
+	gap: 5px;
+	@include params.input-shadow;
+}
+.TextInput {
+	width: 100%;
+	outline: none;
+	background: none;
+	border: none;
+	color: color.$dark;
+	@include font.input;
+}
+.error {
+	@include params.input-shadow-err;
+	background-color: rgb(253, 213, 213);
+}
+.errorName {
+	color: rgb(255, 112, 112);
+	@include font.span-little;
+	text-align: center;
+}
+.TextButton {
+	padding: 5px 10px;
+	outline: none;
+	background: none;
+	border: 2px solid color.$light;
+	border-radius: 10px;
+	color: color.$light;
+	@include font.input;
+	&:hover {
+		@include params.light;
+		cursor: pointer;
+	}
+}
+
+@media (width<=780px) {
+	.TextInput {
+		@include font.input-mob;
+	}
+	.H1 {
+		@include font.H-mob;
+	}
+	.TextButton {
+		@include font.input-mob;
+	}
+	.Window {
+		width: 100%;
+		border-radius: 0px;
+	}
+	.Form {
+		align-items: center;
+	}
+}

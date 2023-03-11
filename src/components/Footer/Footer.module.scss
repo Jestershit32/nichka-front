@@ -1,0 +1,33 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.Footer {
+	min-height: 200px;
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	@include params.padding;
+	color: color.$light;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: color.$dark;
+	@include font.span;
+	gap: 30px;
+}
+.Span {
+	max-width: 300px;
+}
+@media (width<=780px) {
+	.Footer {
+		flex-direction: column;
+		@include params.padding-mob;
+		justify-content: center;
+		@include font.span-little;
+	}
+	.Span {
+		text-align: center;
+	}
+}

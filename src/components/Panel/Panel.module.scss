@@ -17,6 +17,7 @@
 	border-radius: 20px;
 	background-color: color.$dark;
 	position: relative;
+	@include params.shadow;
 }
 .PanelBack {
 	color: color.$light;

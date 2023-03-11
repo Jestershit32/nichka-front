@@ -1,0 +1,75 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.Post {
+	@include params.padding;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 50px;
+}
+.PostLeft {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+}
+.PostRight {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	padding-right: 35px;
+	color: color.$light;
+}
+.H1 {
+	@include font.H;
+	text-align: end;
+}
+.P {
+	@include font.p;
+	text-align: justify;
+}
+.tags {
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	flex-wrap: wrap;
+	gap: 5px;
+}
+@media (width<1000px) {
+	.Post {
+		flex-direction: column;
+	}
+	.PostLeft {
+		align-items: center;
+	}
+	.H1 {
+		text-align: center;
+	}
+}
+@media (width<=780px) {
+	.Post {
+		@include params.padding-mob;
+		gap: 20px;
+	}
+	.PostLeft {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 30px;
+	}
+	.PostRight {
+		padding: 0px;
+	}
+	.H1 {
+		@include font.H-mob;
+	}
+	.P {
+		@include font.p-mob;
+	}
+}

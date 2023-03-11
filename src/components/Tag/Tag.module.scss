@@ -1,0 +1,17 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.Tag {
+	color: color.$light;
+	@include font.span-little;
+	padding: 10px 15px;
+	border-radius: 15px;
+	@include params.shadow;
+	background-color: color.$dark;
+	transition-duration: 0.3s;
+	&:hover {
+		@include params.light;
+		cursor: pointer;
+	}
+}

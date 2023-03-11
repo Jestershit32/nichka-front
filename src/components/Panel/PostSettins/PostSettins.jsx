@@ -15,14 +15,15 @@ import { useState } from "react"
 
 export const PostSettins = () => {
 	const [togglePanel, setTogglePanel] = useState(false)
-	return (<>
-		<img className={styles.toggler} src={iconVar} alt="" onClick={() => setTogglePanel(!togglePanel)} />
-		<div className={`${styles.PostSettins} ${togglePanel ? styles.active : " "}`} >
-			<SettingsItem icon={iconCls} name={"Заблокировать"} />
-			<SettingsItem icon={iconRead} name={"Редактировать"} />
-			<SettingsItem icon={iconDel} name={"Удалить"} />
-			<SettingsItem icon={iconFav} name={"В избранное"} />
+	return (
+		<div className={styles.PanelSettings}>
+			<img className={styles.toggler} src={iconVar} alt="" onClick={() => setTogglePanel(!togglePanel)} />
+			<div className={`${styles.PostSettins} ${togglePanel ? styles.active : " "}`} >
+				<SettingsItem icon={iconCls} name={"Заблокировать"} />
+				<SettingsItem icon={iconRead} name={"Редактировать"} />
+				<SettingsItem icon={iconDel} name={"Удалить"} />
+				<SettingsItem icon={iconFav} name={"В избранное"} />
+			</div>
 		</div>
-	</>
 	)
 }
