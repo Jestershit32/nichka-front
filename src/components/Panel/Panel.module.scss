@@ -18,6 +18,7 @@
 	background-color: color.$dark;
 	position: relative;
 	@include params.shadow;
+	gap: 10px;
 }
 .PanelBack {
 	color: color.$light;

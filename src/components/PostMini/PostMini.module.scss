@@ -1,0 +1,81 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.PostMini {
+	width: 100%;
+	display: flex;
+	gap: 70px;
+	justify-content: space-between;
+	background-color: color.$dark;
+	@include params.shadow;
+	border-radius: 30px;
+
+	padding: 15px 30px;
+	transition-duration: 0.3s;
+}
+.LeftBlock {
+	display: flex;
+	flex-direction: column;
+	align-self: flex-start;
+	gap: 10px;
+}
+.InfoMiniBlock {
+	align-items: flex-end;
+	color: color.$light;
+	display: flex;
+	justify-content: space-between;
+	@include font.span-little;
+	gap: 30px;
+}
+.MiddleBlock {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+.TagsBlock {
+	display: flex;
+	gap: 10px;
+}
+.H1 {
+	@include font.H-mini;
+	color: color.$light;
+	border: 1px solid color.$dark;
+	&:hover {
+		border-bottom: 1px solid color.$light;
+		border-top: 1px solid color.$light;
+		cursor: pointer;
+
+		// @include params.light;
+	}
+}
+
+@media (width<=780px) {
+	.TagsBlock {
+		max-height: 26px;
+		flex-wrap: wrap;
+		gap: 2%;
+		overflow: hidden;
+	}
+	.PostMini {
+		border-radius: 0px;
+		gap: 10px;
+	}
+	.H1 {
+		max-width: 300px;
+		@include font.H-mob;
+		text-align: end;
+	}
+}
+@media (width<=460px) {
+	.Settings {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+	}
+	.PostMini {
+		position: relative;
+		flex-direction: column;
+	}
+}

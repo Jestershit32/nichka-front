@@ -1,0 +1,49 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.Pagination {
+	width: 100%;
+	justify-content: center;
+	display: flex;
+	align-items: center;
+	gap: 30px;
+	margin: 5px 0px;
+}
+.PagItem {
+	@include font.span;
+	background-color: color.$dark;
+	color: color.$light;
+	padding: 7px 18px;
+	border-radius: 10px;
+	@include params.shadow;
+	transition-duration: 0.3s;
+	&:hover {
+		@include params.light;
+		cursor: pointer;
+	}
+}
+.active {
+	border: 2px solid color.$light;
+	padding: 12px 20px;
+	&:hover {
+		@include params.shadow;
+		cursor: pointer;
+	}
+}
+.PagNavblock {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+@media (width<=780px) {
+	.Pagination {
+		gap: 15px;
+	}
+	.PagItem {
+		padding: 7px 12px;
+	}
+	.active {
+		padding: 8px 13px;
+	}
+}

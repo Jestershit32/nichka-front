@@ -38,7 +38,7 @@ export const Search = () => {
 					onChange={handlerValue} />
 				<img src={iconCls} alt="" className={styles.Ico} />
 			</div>
-			<SettingsItem icon={iconFilt} name={"Фильтр"} onClick={toggle} />
+			<SettingsItem icon={"filter"} name={"Фильтр"} onClick={toggle} />
 			{toggleFilter && <FilterMenu />}
 		</div>
 	)

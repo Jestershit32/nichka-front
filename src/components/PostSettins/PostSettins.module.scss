@@ -6,6 +6,7 @@
 	width: 100%;
 	display: flex;
 	justify-content: flex-end;
+	position: relative;
 }
 .PostSettins {
 	display: flex;
@@ -18,20 +19,22 @@
 .toggler {
 	display: none;
 }
-@media (width<1300px) {
+@media (width<1450px) {
 	.toggler {
 		display: block;
+		z-index: 0;
 	}
 	.PostSettins {
 		display: none;
 		position: absolute;
-		top: 65px;
-		right: 10px;
+		top: 55px;
+		right: 0px;
 		flex-direction: column;
 		background-color: color.$dark;
 		border-radius: 20px;
 		padding: 15px;
 		align-items: start;
-		@include params.shadow;
+		@include params.light;
+		z-index: 1;
 	}
 }

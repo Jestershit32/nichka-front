@@ -31,3 +31,11 @@ input::selection {
 	background-color: #191825;
 	color: #fff;
 }
+textarea::selection {
+	background-color: #191825;
+	color: #fff;
+}
+a {
+	color: white;
+	text-decoration: none;
+}

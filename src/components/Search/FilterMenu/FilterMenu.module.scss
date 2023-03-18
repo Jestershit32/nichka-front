@@ -5,7 +5,7 @@
 .FilterMenu {
 	position: absolute;
 	background-color: color.$dark;
-	top: 60px;
+	top: 55px;
 	right: -35px;
 	display: flex;
 	flex-direction: column;
@@ -15,7 +15,8 @@
 	color: color.$light;
 	@include font.span-little;
 	gap: 15px;
-	@include params.shadow;
+	@include params.light;
+	z-index: 4;
 }
 .filterItem {
 	display: flex;

@@ -1,4 +1,4 @@
-import iconRule from "../../global-css/svg/rule.svg"
+import iconRule from "./rule.svg"
 import Avatar from "../../global-css/svg/profile.jpg"
 import styles from "./PostProfile.module.scss"
 

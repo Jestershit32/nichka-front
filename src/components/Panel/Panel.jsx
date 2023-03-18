@@ -1,17 +1,15 @@
-
 import styles from "./Panel.module.scss"
-import { PostSettins } from "./PostSettins/PostSettins"
-// import { Search } from './Search/Search'
 
 
-export const Panel = () => {
+
+
+export const Panel = ({ children, noBack }) => {
 	return (
 		<div className={styles.PanelBlock}>
 			<div className={styles.Panel}>
-				<span className={styles.PanelBack} >{"<Назад"}</span>
-				<PostSettins />
-				{/* <Search /> */}
 
+				{!noBack && <span className={styles.PanelBack} >{"<Назад"}</span>}
+				{children}
 			</div>
 		</div>
 	)
