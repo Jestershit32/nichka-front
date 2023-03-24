@@ -2,18 +2,38 @@
 import styles from "./Pagination.module.scss"
 
 
-export const Pagination = () => {
-	return (
-		<div className={styles.Pagination}>
+export const Pagination = ({ pages, pageNumbSet, activ }) => {
 
-			<span className={styles.PagItem}>{"<"}</span>
+	const pag = () => {
+		const arr = [];
+		for (let i = 1; i <= pages; i++) {
+			arr.push(<span key={i} onClick={() => pageNumbSet({ page: i })} className={`${styles.PagItem} ${(activ === i) && styles.active}`}>{i}</span>)
+		}
+		return arr
+	}
+
+	if (pages <= 1) {
+		return null
+	}
+
+	return (
+
+		<div className={styles.Pagination}  >
+
+			<span onClick={() => pageNumbSet({ page: 1 })} className={styles.PagItem}>{"<"}</span>
+
+
 			<div className={styles.PagNavblock}>
-				<span className={`${styles.PagItem} ${true && styles.active}`}>{"1"}</span>
-				<span className={styles.PagItem}>{"2"}</span>
-				<span className={styles.PagItem}>{"3"}</span>
-				<span className={styles.PagItem}>{"4"}</span>
+				{
+
+					pag().map(item => {
+						return (item)
+					})
+
+
+				}
 			</div>
-			<span className={styles.PagItem}>{">"}</span>
+			<span onClick={() => pageNumbSet({ page: pages })} className={styles.PagItem}>{">"}</span>
 
 		</div>
 	)

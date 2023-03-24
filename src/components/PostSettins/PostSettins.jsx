@@ -12,6 +12,11 @@ import { useState } from "react"
 
 export const PostSettins = ({ children }) => {
 	const [togglePanel, setTogglePanel] = useState(false)
+
+	if (!children) {
+		return null
+	}
+
 	return (
 		<div className={styles.PanelSettings}>
 			<img className={styles.toggler} src={iconVar} alt="" onClick={() => setTogglePanel(!togglePanel)} />

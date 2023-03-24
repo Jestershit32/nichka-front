@@ -4,50 +4,25 @@ import { Tag } from "../Tag/Tag"
 import { PostProfile } from '../PostProfile/PostProfile'
 import { PostInfo } from './PostInfo/PostInfo'
 
-export const Post = () => {
-	const tags = [
-		"хэтэмэль",
-		"Ghbdfg",
-		"html",
-		"react",
-		"redux",
-		"хэтэмэль",
-		"Ghbdfg",
-		"html",
-		"react",
-		"redux",
-		"хэтэмэль",
-		"Ghbdfg",
-		"html",
-		"react",
-		"redux",
-	]
+export const Post = ({ post }) => {
+
 
 
 	return (
 		<div className={styles.Post}>
 			<div className={styles.PostLeft}>
-				<PostProfile />
-				<PostInfo />
+				<PostProfile user={post.user} />
+				<PostInfo dateUse={post.createdAt + " "} dateUpdate={post.updateAt + " "} views={post.viewsCount} inFavorit={0} />
 			</div>
 			<div className={styles.PostRight}>
 				<h1 className={styles.H1}>
-					Механизм саморазвития и регуляции данных с помошью квантовой физики
+					{post.title}
 				</h1>
 				<p className={styles.P}>
-					Механизм саморазвития и регуляции данных с помошью
-					квантовой физики Механизм саморазвития и регуляции
-					данных с помошью квантовой физики Механизм саморазвития
-					и регуляции данных с помошью квантовой физики Механизм
-					саморазвития и регуляции данных с помошью квантовой
-					физикиМеханизм саморазвития и регуляции данных с помошью
-					квантовой физики Механизм саморазвития и регуляции данных
-					с помошью квантовой физики Механизм саморазвития и регуляц
-					ии данных с помошью квантовой физики Механизм саморазвития
-					и регуляции данных с помошью квантовой физики Механизм сам
+					{post.description}
 				</p>
 				<div className={styles.tags}>
-					{tags.map((item, key) => <Tag name={`#${item}`} key={key} />)}
+					{post.tags.map((item, key) => <Tag name={item} key={key} />)}
 				</div>
 			</div>
 		</div>

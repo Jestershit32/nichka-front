@@ -1,0 +1,74 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.AlertBlock {
+	transition-duration: 2s;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	display: flex;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	backdrop-filter: blur(10px);
+	z-index: 100;
+	overflow-y: hidden;
+}
+.AlertWindow {
+	margin-top: 40vh;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding: 40px 30px;
+	border-radius: 30px;
+	background-color: color.$dark;
+	@include params.shadow;
+	border: 1px solid color.$light;
+}
+.H1 {
+	text-align: center;
+	color: color.$light;
+	@include font.H;
+}
+.P {
+	text-align: center;
+	color: color.$light;
+	@include font.p;
+}
+.vibor {
+	justify-content: center;
+	gap: 30px;
+	display: flex;
+}
+.button {
+	transition-duration: 0.2s;
+	outline: 0px;
+	border: 2px solid color.$light;
+	border-radius: 10px;
+	padding: 8px 10px;
+	background-color: color.$dark;
+	@include font.input;
+	color: color.$light;
+	&:hover {
+		cursor: pointer;
+		@include params.light;
+	}
+}
+@media (width<=780px) {
+	.AlertWindow {
+		width: 100%;
+		border-radius: 0px;
+	}
+	.H1 {
+		@include font.H-mob;
+	}
+	.P {
+		@include font.p-mob;
+	}
+	.button {
+		@include font.input-mob;
+	}
+}

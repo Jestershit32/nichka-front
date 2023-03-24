@@ -39,6 +39,10 @@
 	gap: 10px;
 }
 .H1 {
+	// display: block;
+	// text-align: right;
+	// word-wrap: normal;
+	overflow-wrap: break-word;
 	@include font.H-mini;
 	color: color.$light;
 	border: 1px solid color.$dark;

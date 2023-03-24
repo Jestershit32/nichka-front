@@ -3,6 +3,7 @@
 @use "src/global-css/params";
 
 .Pagination {
+	min-height: 50px;
 	width: 100%;
 	justify-content: center;
 	display: flex;

@@ -3,58 +3,85 @@ import styles from "./PostMini.module.scss"
 import { Tag } from "../Tag/Tag"
 import { PostSettins } from "../PostSettins/PostSettins";
 import { SettingsItem } from '../SettingsItem/SettingsItem';
-
 import { Link } from 'react-router-dom';
-export const PostMini = () => {
+import { useMyProfileByTokenQuery } from "../../redux"
+export const PostMini = ({ post, noProfile = false }) => {
+	const { data, isLoading } = useMyProfileByTokenQuery();
 
 
+	if (isLoading) {
+		return <h1>жди</h1>
+	}
+	let checkOptions = false;
+	let checkInFavorites = false;
 
+	if (data) {
+		if (data._id && post.user) {
+			checkOptions = data._id === post.user._id || data.rule === "admin"
+			if (post._id && data.favorites) {
+				checkInFavorites = data.favorites.some(item => item === post._id)
+				// console.log(post._id, data.favorites)
+			}
+		}
+
+	}
+
+	// if (checkOptions) {
+	// 	console.log(data.rule, post._id, "есть доступ для редактирования")
+	// } else {
+	// 	console.log(data.rule, post._id, "нет доступа для редактирования")
+	// }
+
+	// if (checkInFavorites) {
+	// 	console.log(data.rule, post._id, "у тебя в избранных")
+	// } else {
+	// 	console.log(data.rule, post._id, "нет у тебя в избранных")
+	// }
+
+
+	// console.log(checkInFavorites, data);
 
 	return (
-
 		<div className={styles.PostMini}>
 			<div className={styles.LeftBlock}>
-				<PostProfile />
-				<div className={styles.InfoMiniBlock}>
-					<span className={styles.Name}>
-						У вас в Избранных
-					</span>
-				</div>
-
+				{!noProfile && <PostProfile user={post.user} />}
+				{checkInFavorites &&
+					<div className={styles.InfoMiniBlock}>
+						<span className={styles.Name}>
+							У вас в Избранных
+						</span>
+					</div>
+				}
 				<div className={styles.InfoMiniBlock}>
 					<span className={styles.Name}>
 						Просмотров
 					</span>
 					<span className={styles.Value}>
-						13
+						{post.viewsCount}
 					</span>
 				</div>
 			</div>
 			<div className={styles.MiddleBlock}>
 				<div className={styles.Settings}>
-					<PostSettins>
-						<SettingsItem icon={"close"} name={"Заблокировать"} />
-						<SettingsItem icon={"read"} name={"Редактировать"} />
-						<SettingsItem icon={"delete"} name={"Удалить"} />
-						<SettingsItem icon={"favorite"} name={"В избранное"} />
-					</PostSettins>
+					{data ? <PostSettins>
+						{checkOptions ? <>
+							{/* <SettingsItem icon={"close"} name={"Заблокировать"} /> */}
+							<SettingsItem icon={"read"} name={"Редактировать"} />
+							<SettingsItem icon={"delete"} name={"Удалить"} />
+						</> : null
+						}
+						{!checkInFavorites ? <SettingsItem icon={"favorite"} name={"В избранное"} /> : <SettingsItem icon={"close"} name={"Удалить из избранных"} />}
+					</PostSettins> : null
+					}
 				</div>
-				<Link to={"post/" + 1} >
-					<h1 className={styles.H1}>
-						Снхрофазатронная диструктуризаця данных при помощи болта и 100 законов квантовой физики
-					</h1>
+				<Link className={styles.H1} to={"/post/" + post._id}>
+					{post.title}
 				</Link>
 				<div className={styles.TagsBlock} >
-					<Tag name={"хуй"} key={1} />
-					<Tag name={"хуй"} key={2} />
-					<Tag name={"хуй"} key={3} />
-					<Tag name={"хуй"} key={5} />
-					<Tag name={"хуй"} key={6} />
-					<Tag name={"хуй"} key={7} />
-					<Tag name={"хуй"} key={4} />
+					{post.tags.map((item, key) => <Tag name={item} key={key} />)}
 				</div>
-			</div>
+			</div >
 
-		</div>
+		</div >
 	)
 }

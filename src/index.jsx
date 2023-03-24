@@ -1,35 +1,46 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './global-css/index.css';
-// import { App } from './App';
 
-
-
-
+import { Provider } from 'react-redux'
+import { store } from "./redux";
 
 import { HomePage } from "./pages/HomePage"
 import { ProfilePage } from "./pages/ProfilePage"
+import { PostPage } from './pages/PostPage'
+import { LoginPage } from './pages/LoginPage'
+import { ErrorPage } from './pages/ErrorPage';
 import {
   createRoutesFromElements,
   createBrowserRouter,
   RouterProvider,
   Route,
-  // Link,
 } from "react-router-dom";
+
+
+
+
+
 
 
 const BrowserRouter = createBrowserRouter(createRoutesFromElements(
   <>
-    <Route path="/" element={<HomePage />} />
-    <Route path="profile/:id" element={<ProfilePage />} />
+    <Route path="/" element={<HomePage />} errorElement={<ErrorPage />} />
+    <Route path="home-page" element={<HomePage />} errorElement={<ErrorPage />} />
+    <Route path="post/:id" element={<PostPage />} errorElement={<ErrorPage />} />
+    <Route path="login" element={<LoginPage />} errorElement={<ErrorPage />} />
+    <Route path="profile/:id" element={<ProfilePage />} errorElement={<ErrorPage />} />
+    <Route path="404" element={<ErrorPage />} />
   </>
 ))
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={store}>
     <RouterProvider router={BrowserRouter} />
-  </React.StrictMode>
+  </Provider>
+  // </React.StrictMode>
 );
 

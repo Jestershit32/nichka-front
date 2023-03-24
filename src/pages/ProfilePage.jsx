@@ -6,7 +6,21 @@ import { Profile } from '../components/Profile/Profile'
 import { PostSettins } from "../components/PostSettins/PostSettins";
 import { SettingsItem } from "../components/SettingsItem/SettingsItem";
 
+
+import { useProfileByIdQuery } from "../redux"
+import { useParams } from "react-router-dom"
+
 export const ProfilePage = () => {
+
+    let { id } = useParams();
+
+    const { data, isLoading } = useProfileByIdQuery(id);
+
+
+    if (isLoading) {
+        return <h1>жди нахуй</h1>
+    }
+    console.log(data)
     return (
         <Wrapper>
             <Panel>
@@ -17,9 +31,9 @@ export const ProfilePage = () => {
                     <SettingsItem icon={"favorite"} name={"В избранное"} onClick={() => console.log("блять")} />
                 </PostSettins>
             </Panel>
-            <Profile />
+            <Profile user={data.user} />
             <List>
-                <PostMini />
+                {data.user.favorites.map((item) => <PostMini noProfile post={item} key={item._id} />)}
             </List>
         </Wrapper>
     )

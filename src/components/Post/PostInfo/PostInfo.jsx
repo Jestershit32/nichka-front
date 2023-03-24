@@ -2,7 +2,19 @@
 import styles from "./PostInfo.module.scss"
 
 
-export const PostInfo = () => {
+export const PostInfo = ({ dateUse, dateUpdate, views, inFavorit }) => {
+
+	const dateUpdateBlock = <div className={styles.InfoMiniBlock}>
+		<span className={styles.Name}>
+			Дата последнего
+			Изменения:
+		</span>
+		<span className={styles.Value}>
+			{dateUpdate.slice(0, 10)}
+		</span>
+	</div>
+
+
 	return (
 		<div className={styles.PostInfo}>
 			<div className={styles.InfoMiniBlock}>
@@ -11,15 +23,16 @@ export const PostInfo = () => {
 					публикации:
 				</span>
 				<span className={styles.Value}>
-					09.09.2000
+					{dateUse.slice(0, 10)}
 				</span>
 			</div>
+			{!dateUpdate && dateUpdateBlock}
 			<div className={styles.InfoMiniBlock}>
 				<span className={styles.Name}>
 					Просмотров
 				</span>
 				<span className={styles.Value}>
-					13
+					{views}
 				</span>
 			</div>
 			<div className={styles.InfoMiniBlock}>
@@ -27,7 +40,7 @@ export const PostInfo = () => {
 					В избранных
 				</span>
 				<span className={styles.Value}>
-					12
+					{inFavorit}
 				</span>
 			</div>
 		</div>

@@ -1,36 +1,51 @@
 import ProfileImage from "../../global-css/svg/profile.jpg"
-import IconRule from "./rule.svg"
+import iconNobody from "./rule.svg"
 
 import IconPub from "./public.svg"
 import IconFav from "./favorit.svg"
 import styles from "./Profile.module.scss"
 
 
-export const Profile = () => {
+export const Profile = ({ user }) => {
+
+	const rule = (rule) => {
+		switch (rule) {
+			// case "nobody":
+			// 	return iconNobody
+			case "creator":
+				return iconNobody
+			case "admin":
+				return iconNobody
+			default:
+				return iconNobody
+		}
+	}
+
+
 	return (<>
 		<h1 className={styles.H1}>Профиль</h1>
 		<div className={styles.ProfileWindow}>
 
 			<div className={styles.Profile}>
-				<img className={styles.ProfileImage} src={ProfileImage} alt="" />
+				<img className={styles.ProfileImage} src={user.avatarUrl ?? ProfileImage} alt="" />
 				<div className={styles.MiddleBlock}>
 					<div className={styles.InfoString}>
 						<span className={styles.InfoStringName}>Фамилия</span>
-						<span className={styles.InfoStringValue}>Веденев</span>
+						<span className={styles.InfoStringValue}>{user.lastName}</span>
 					</div>
 					<div className={styles.InfoString}>
 						<span className={styles.InfoStringName}>Имя</span>
-						<span className={styles.InfoStringValue}>Максим</span>
+						<span className={styles.InfoStringValue}>{user.firstName}</span>
 					</div>
 					<div className={styles.InfoString}>
 						<span className={styles.InfoStringName}>Ник</span>
-						<span className={styles.InfoStringValue}>jestershit32</span>
+						<span className={styles.InfoStringValue}>{user.nickname}</span>
 					</div>
 					<div className={styles.InfoString}>
 						<span className={styles.InfoStringName}>Роль</span>
 						<span className={styles.InfoStringValue}>
-							<img className={styles.InfoStringRule} src={IconRule} alt="" />
-							creator
+							<img className={styles.InfoStringRule} src={rule(user.rule)} alt="" />
+							{user.rule}
 						</span>
 					</div>
 				</div>
