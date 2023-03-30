@@ -4,13 +4,14 @@ import { MessagePanel } from "../MessagePanel/MessagePanel"
 
 import styles from "./Wrapper.module.scss"
 
-export const Wrapper = ({ children, noProfile }) => {
+export const Wrapper = ({ children }) => {
 	return (<>
 		<div className={styles.Wrapper}>
-			<Header noProfile={noProfile} />
+			<Header />
 			{children}
 			<Footer />
 			<MessagePanel />
+
 		</div>
 	</>
 	)

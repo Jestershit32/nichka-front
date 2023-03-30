@@ -4,10 +4,11 @@ import iconNobody from "./rule.svg"
 import IconPub from "./public.svg"
 import IconFav from "./favorit.svg"
 import styles from "./Profile.module.scss"
-
+import { useDispatch } from "react-redux"
+import { setTab } from "../../redux/slices/profilePage"
 
 export const Profile = ({ user }) => {
-
+	const dispatch = useDispatch()
 	const rule = (rule) => {
 		switch (rule) {
 			// case "nobody":
@@ -51,15 +52,15 @@ export const Profile = ({ user }) => {
 				</div>
 			</div>
 			<div className={styles.RightBlock}>
-				<span className={styles.ButtonToggler}>
+				<span className={styles.ButtonToggler} onClick={() => dispatch(setTab({ favoritOrCreated: "favorit" }))}>
 					<img className={styles.ButtonTogglerIcon} src={IconFav} alt="" />
 					Избранное</span>
-				<span className={styles.ButtonToggler}>
+				<span className={styles.ButtonToggler} onClick={() => dispatch(setTab({ favoritOrCreated: "created" }))}>
 					<img className={styles.ButtonTogglerIcon} src={IconPub} alt="" />
 					Опубликованное</span>
 			</div>
 		</div>
-		<h1 className={styles.H1}>Избранное</h1>
+
 	</>
 	)
 }

@@ -6,25 +6,29 @@ import { AlertWindow } from "../AlertWindow/AlertWindow";
 import { useMyProfileByTokenQuery } from '../../redux'
 import { useDispatch, useSelector } from "react-redux";
 
-import { Link } from "react-router-dom"
-import { logout, updateUser, toggleOpenWindow } from "../../redux/slices/myProfile";
-import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom"
+import { toggleWindow } from "../../redux/slices/alertWindow";
+
 
 
 export const MyProfile = () => {
+
+	const ifOpenWindow = useSelector(state => state.alertWindow.window.open)
+
 	const { data, isLoading } = useMyProfileByTokenQuery();
 	const dispatch = useDispatch();
-	const ifOpenWindow = useSelector(state => state.myProfile.logoutWindow.open)
+	const nav = useNavigate();
 
-	useEffect(() => {
-		dispatch(updateUser(data))
-	}, [dispatch, data])
 
 	if (isLoading) {
 		return <h1>жди нахуй</h1>
 	}
 
+	const alertFunc = () => {
+		nav(0);
+		return localStorage.removeItem("token");
 
+	}
 
 
 
@@ -41,7 +45,42 @@ export const MyProfile = () => {
 		}
 	}
 
-	if (!data) {
+
+
+	if (data) {
+		return (
+
+			<div className={styles.MyProfile}>
+
+				<Link to={`/profile/${data._id}`}>
+					<div className={styles.BlockUp}>
+						<img className={styles.Avatar} src={data.avatarUrl && Avatar} alt="" />
+						<div className={styles.NameBlock}>
+							<span className={styles.NameText}>
+								{data.firstName}
+							</span>
+							<span className={styles.NameText}>
+								{data.lastName}
+							</span>
+						</div>
+					</div>
+				</Link>
+				<div className={styles.BlockBottom}>
+					<div className={styles.Nikblock}>
+						<img className={styles.RuleIcon} src={rule(data.rule)} alt="" />
+						<span className={styles.bottomText}>
+							{data.nickname}
+						</span>
+					</div>
+					<span onClick={() => dispatch(toggleWindow())} className={`${styles.bottomText} ${styles.exit}`} >
+						Выйти
+					</span>
+				</div>
+				<AlertWindow H={"Выход"} message={"Вы действительно хотите выйти"} inOkName={"Выйти"} inOk={alertFunc} open={ifOpenWindow} back={() => dispatch(toggleWindow())} />
+			</div>
+
+		)
+	} else {
 		return (
 			<Link to={`/login`}>
 				<div className={styles.MyProfile}>
@@ -56,37 +95,4 @@ export const MyProfile = () => {
 			</Link>
 		)
 	}
-
-	return (
-
-		<div className={styles.MyProfile}>
-
-			<Link to={`/profile/${data._id}`}>
-				<div className={styles.BlockUp}>
-					<img className={styles.Avatar} src={data.avatarUrl && Avatar} alt="" />
-					<div className={styles.NameBlock}>
-						<span className={styles.NameText}>
-							{data.firstName}
-						</span>
-						<span className={styles.NameText}>
-							{data.lastName}
-						</span>
-					</div>
-				</div>
-			</Link>
-			<div className={styles.BlockBottom}>
-				<div className={styles.Nikblock}>
-					<img className={styles.RuleIcon} src={rule(data.rule)} alt="" />
-					<span className={styles.bottomText}>
-						{data.nickname}
-					</span>
-				</div>
-				<span onClick={() => dispatch(toggleOpenWindow())} className={`${styles.bottomText} ${styles.exit}`} >
-					Выйти
-				</span>
-			</div>
-			<AlertWindow H={"Выход"} message={"Вы действительно хотите выйти"} inOk={() => { dispatch(logout()) }} open={ifOpenWindow} back={() => dispatch(toggleOpenWindow())} />
-		</div>
-
-	)
 }

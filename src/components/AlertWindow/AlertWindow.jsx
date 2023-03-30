@@ -1,10 +1,9 @@
 
 
 import styles from "./AlertWindow.module.scss"
-import { useNavigate } from "react-router-dom"
 
-export const AlertWindow = ({ message, H, inOk, open, back }) => {
-	const nav = useNavigate();
+export const AlertWindow = ({ message, H, inOk, inOkName, open, back }) => {
+
 
 
 	if (!open) {
@@ -27,10 +26,9 @@ export const AlertWindow = ({ message, H, inOk, open, back }) => {
 					}}
 						className={styles.button}>Отмена</button>
 					<button onClick={() => {
-						nav(0)
 						inOk()
 						back()
-					}} className={styles.button}>Да</button>
+					}} className={styles.button}>{inOkName}</button>
 				</div>
 			</div>
 		</div>

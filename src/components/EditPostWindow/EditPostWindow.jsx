@@ -1,25 +1,53 @@
-import styles from "./AddPostWindow.module.scss"
+import styles from "./EditPostWindow.module.scss"
 import iconAdd from "./add.svg";
 import iconDel from "./cls.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { setTitleValue, setDescriptionValue, addTag, setOneTagValue, removeTag, setError } from "../../redux/slices/createAndUpdatePost";
-import { useUploadFileMutation, useAddPostMutation, useMyProfileByTokenQuery } from "../../redux"
-import { useRef } from "react";
+import {
+	setTitleValue,
+	setDescriptionValue,
+	addTag, setOneTagValue,
+	removeTag,
+	setError,
+	addAllTags
+} from "../../redux/slices/createAndUpdatePost";
+import {
+	useUploadFileMutation,
+	useUpdatePostMutation,
+	useMyProfileByTokenQuery,
+	useGetOnePostQuery,
+	useRemoveFileMutation
+} from "../../redux"
+import { useEffect, useRef } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const AddPostWindow = () => {
+export const EditPostWindow = () => {
 	const dispatch = useDispatch();
 	const { title, description, oneTag, tags, errors } = useSelector(state => state.createAndUpdate)
-	const [addPost] = useAddPostMutation()
+	const [updatePost] = useUpdatePostMutation()
 	const [uploadFile] = useUploadFileMutation();
+	const [removeFile] = useRemoveFileMutation()
 	const inputFile = useRef([])
 	const nav = useNavigate()
 	const { data, isLoading } = useMyProfileByTokenQuery();
+	const { id } = useParams();
+	const { data: post = {} } = useGetOnePostQuery(id);
+
+
+	useEffect(() => {
+		if (post?.doc) {
+			dispatch(setTitleValue({ title: post.doc.title }))
+			dispatch(setDescriptionValue({ description: post.doc.description }))
+			dispatch(addAllTags({ tags: post.doc.tags }))
+		}
+	}, [post])
+
+
 
 	if (isLoading) {
 		return <h1>loading</h1>
 	}
+
 
 	if (!data) {
 		nav('/')
@@ -52,15 +80,16 @@ export const AddPostWindow = () => {
 
 
 	const submiteHandler = async () => {
-		// if (formData.value) {
-		// }
 		dispatch(setError({ errors: [] }))
 		try {
-			const backAlertPost = await addPost({
-				title,
-				description,
-				tags
+			const backAlertPost = await updatePost({
+				body: {
+					title,
+					description,
+					tags
+				}, id
 			})
+
 			if (backAlertPost?.error) {
 				console.log(backAlertPost)
 				dispatch(setError({ errors: backAlertPost.error.data }))
@@ -68,6 +97,7 @@ export const AddPostWindow = () => {
 			}
 			if (inputFile.current.files.length === 0) {
 				dispatch(setError({ errors: [{ msg: "файл не загружен" }] }))
+				// nav("/post/" + backAlertPost.data.doc._id)
 			}
 			let formData = new FormData();
 			formData.append("file", inputFile.current.files[0])
@@ -79,7 +109,12 @@ export const AddPostWindow = () => {
 				dispatch(setError({ errors: [{ msg: backAlertFile.error.data.message }] }))
 				throw ("фаил не загрузился")
 			} else {
-				console.log("пост загружен")
+				const backOfRemoveFile = await removeFile({ url: post.doc.fileUrl })
+				if (backOfRemoveFile?.success) {
+					console.log("пост загружен")
+				} else {
+					console.log("не удалось загрузить файл")
+				}
 			}
 
 			nav("/post/" + backAlertFile.data.doc._id)
@@ -95,7 +130,7 @@ export const AddPostWindow = () => {
 	return (
 		<div className={styles.AddPostWindow}>
 			<div className={styles.Window}>
-				<h1 className={styles.H1}>Добавить док в нычку</h1>
+				<h1 className={styles.H1}>Изменить док </h1>
 				<div className={styles.Form}>
 					<div className={`${styles.TextBlock} ${"" && styles.error}`}>
 						<input type="text" placeholder="Введите Название" className={styles.TextInput} value={title} onChange={event => titleHandler(event)} />
@@ -116,7 +151,7 @@ export const AddPostWindow = () => {
 						<div className={styles.tegBox}>{
 							tags.map((item, key) => {
 								return (
-									<span className={styles.Teg}>
+									<span key={key} className={styles.Teg}>
 										#{item}
 										<img className={styles.TegDel} src={iconDel} onClick={() => removeTagHandler(key)} alt="" />
 									</span>
@@ -128,19 +163,20 @@ export const AddPostWindow = () => {
 
 					<form action="" method="post">
 						<input ref={inputFile} type="File" id="myfile" className={styles.fileInput} required />
+						<a href={'http://localhost:1337' + post.doc?.fileUrl}>Ссылка на имеющийся файл </a>
 					</form>
 					<label htmlFor="myfile" className={styles.fileBlock}>
 						<img src={iconAdd} alt="" className={styles.filePic} />
 						<span className={styles.fileText}>{"Добавьте файл"}</span>
 					</label>
 
-					<input type="submit" value="Добавить" onClick={submiteHandler} className={styles.TextButton} />
+					<input type="submit" value="Изменить" onClick={submiteHandler} className={styles.TextButton} />
 
 				</div>
 				<p className={styles.errorName}>
 					{errors ?
-						errors.map(item => {
-							return <span>{item.msg}</span>
+						errors.map((item, key) => {
+							return <span key={key} >{item.msg}</span>
 						})
 						: null
 					}

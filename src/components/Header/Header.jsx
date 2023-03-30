@@ -8,9 +8,6 @@ import { Link } from "react-router-dom"
 
 
 export const Header = () => {
-
-    // const user = useSelector(state => state.myProfile.user)
-
     return (
         <>
             <div className={styles.Header}>

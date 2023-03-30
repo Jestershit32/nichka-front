@@ -1,0 +1,10 @@
+@use "src/global-css/font";
+@use "src/global-css/color";
+@use "src/global-css/params";
+
+.H1 {
+	color: color.$light;
+	@include params.padding;
+	@include font.H;
+	margin: 20px 0px;
+}

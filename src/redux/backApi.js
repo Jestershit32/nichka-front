@@ -7,7 +7,6 @@ const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:1337/',
     prepareHeaders: (headers,) => {
         const token = localStorage.getItem("token")
-        console.log(token);
         // If we have a token set in state, let's assume that we should be passing it.
         if (token) {
             headers.set('authorization', token)
@@ -18,31 +17,68 @@ const baseQuery = fetchBaseQuery({
 })
 
 
+
+
+
+const searchTegInText = (text) => {
+    if (text) {
+        if (text[0] === "#") {
+            return ("tag" + text.slice(1))
+        }
+        return text
+    }
+    return "all"
+}
+
+
+
+
+
+
+
 export const backApi = createApi({
     reducerPath: 'backApi',
     baseQuery,
+    tagTypes: ['Posts'],
     endpoints: (build) => ({
         getPosts: build.query({
-            query: (option) => `posts/${option.page}/${option.inOnePage}/${option.newOrOld}/${option.searchValue ? option.searchValue : "all"}/`
-
+            query: (option) => `posts/${option.page}/${option.inOnePage}/${option.newOrOld}/${searchTegInText(option.searchValue)}/${option.userID ? option.userID : "all"}`,
+            providesTags: ['Posts']
         }),
         getOnePost: build.query({
-            query: (id) => `posts/${id}`
-
+            query: (id) => `posts/${id}`,
+            providesTags: ['Posts']
         }),
         addPost: build.mutation({
             query: (body) => ({
                 url: "posts",
                 method: "POST",
                 body
-            })
+            }),
+            invalidatesTags: ['Posts']
         }),
-        renovePost: build.mutation({
+        removePost: build.mutation({
             query: (id) => ({
                 url: "posts/" + id,
                 method: "DELETE",
-            })
+            }),
+            invalidatesTags: ['Posts']
 
+        }),
+        uploadFile: build.mutation({
+            query: ({ body, id }) => ({
+                url: "upload/file/" + id,
+                method: "POST",
+                body
+            }),
+        }),
+
+        removeFile: build.mutation({
+            query: (body) => ({
+                url: "remove-file",
+                method: "POST",
+                body
+            }),
         }),
         login: build.mutation({
             query: (body) => ({
@@ -52,20 +88,50 @@ export const backApi = createApi({
             }),
         }),
         myProfileByToken: build.query({
-            query: () => `/auth/me/`
+            query: () => "auth/me/",
+            providesTags: ['Posts']
         }),
         ProfileById: build.query({
-            query: (id) => `/user/${id}`
+            query: (id) => "user/" + id,
+            providesTags: ['Posts']
         }),
-        // updatePost: build.mutation({
-        //     query: () => ({
-        //         url: "posts/",
-        //         method: "POST",
-        //         body
-        //     })
-        // }),
+        addInFavorites: build.mutation({
+            query: (id) => ({
+                url: "/action/favorites/" + id,
+                method: "PATCH"
+            }),
+            invalidatesTags: ['Posts']
+        }),
+
+        removeInFavorites: build.mutation({
+            query: (id) => ({
+                url: "/action/favorites/" + id,
+                method: "DELETE"
+            }),
+            invalidatesTags: ['Posts']
+        }),
+        updatePost: build.mutation({
+            query: ({ body, id }) => ({
+                url: "posts/" + id,
+                method: "PATCH",
+                body
+            }),
+            invalidatesTags: ['Posts']
+        }),
 
 
     })
 })
-export const { useGetPostsQuery, useAddPostMutation, useGetOnePostQuery, useLoginMutation, useMyProfileByTokenQuery, useProfileByIdQuery } = backApi
+export const {
+    useAddInFavoritesMutation,
+    useGetPostsQuery,
+    useAddPostMutation,
+    useGetOnePostQuery,
+    useLoginMutation,
+    useMyProfileByTokenQuery,
+    useProfileByIdQuery,
+    useRemoveInFavoritesMutation,
+    useUploadFileMutation,
+    useRemoveFileMutation,
+    useUpdatePostMutation,
+    useRemovePostMutation } = backApi

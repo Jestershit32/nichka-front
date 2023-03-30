@@ -20,7 +20,7 @@ export const Pagination = ({ pages, pageNumbSet, activ }) => {
 
 		<div className={styles.Pagination}  >
 
-			<span onClick={() => pageNumbSet({ page: 1 })} className={styles.PagItem}>{"<"}</span>
+			{activ !== 1 ? <span onClick={() => pageNumbSet({ page: activ - 1 })} className={styles.PagItem + " " + styles.PagItemNav}>{"<"}</span> : null}
 
 
 			<div className={styles.PagNavblock}>
@@ -33,7 +33,7 @@ export const Pagination = ({ pages, pageNumbSet, activ }) => {
 
 				}
 			</div>
-			<span onClick={() => pageNumbSet({ page: pages })} className={styles.PagItem}>{">"}</span>
+			{pages !== activ ? <span onClick={() => pageNumbSet({ page: activ + 1 })} className={styles.PagItem + " " + styles.PagItemNav}>{">"}</span> : null}
 
 		</div>
 	)

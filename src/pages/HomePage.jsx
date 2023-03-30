@@ -15,7 +15,8 @@ export const HomePage = () => {
     const { data = {}, isLoading } = useGetPostsQuery({ page, inOnePage, newOrOld, searchValue });
 
 
-
+    const str = "/uploads/file/1680048326115.pdf"
+    console.log(str.slice(1))
 
     if (isLoading) return <h1>чето не так соре</h1>
     console.log(data);

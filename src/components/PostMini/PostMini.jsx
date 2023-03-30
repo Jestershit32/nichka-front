@@ -3,12 +3,27 @@ import styles from "./PostMini.module.scss"
 import { Tag } from "../Tag/Tag"
 import { PostSettins } from "../PostSettins/PostSettins";
 import { SettingsItem } from '../SettingsItem/SettingsItem';
-import { Link } from 'react-router-dom';
-import { useMyProfileByTokenQuery } from "../../redux"
+import { Link, useNavigate } from 'react-router-dom';
+import {
+	useMyProfileByTokenQuery,
+	useAddInFavoritesMutation,
+	useRemoveInFavoritesMutation,
+	useRemovePostMutation
+} from "../../redux"
+import { useDispatch } from 'react-redux';
+import { addMessage } from '../../redux/slices/messages'
+import { AlertWindow } from '../AlertWindow/AlertWindow';
+import { useState } from 'react';
+
+
 export const PostMini = ({ post, noProfile = false }) => {
+	const [isOpen, setOpen] = useState(false);
 	const { data, isLoading } = useMyProfileByTokenQuery();
-
-
+	const [addInFavorites] = useAddInFavoritesMutation()
+	const [removeInFavorites] = useRemoveInFavoritesMutation()
+	const [removePost] = useRemovePostMutation();
+	const dispatch = useDispatch()
+	const nav = useNavigate()
 	if (isLoading) {
 		return <h1>жди</h1>
 	}
@@ -25,6 +40,85 @@ export const PostMini = ({ post, noProfile = false }) => {
 		}
 
 	}
+
+
+
+	if (data && post) {
+		// console.log(post.data.doc);
+		if (data?._id && post.user?._id) {
+			// console.log("Дошло");
+			// console.log(post.data.doc.user._id)
+			checkOptions = data._id === post.user?._id || data.rule === "admin"
+		}
+		if (post._id && data.favorites) {
+			checkInFavorites = data.favorites.some(item => item === post._id)
+		}
+		// if (checkOptions) {
+		// 	console.log(data.rule, post._id, "есть доступ к редактированию")
+		// } else {
+		// 	console.log(data.rule, post._id, "Нет доступа к редактированию")
+		// }
+		// if (checkInFavorites) {
+		// 	console.log(data.rule, post._id, "у тебя в избранных")
+		// } else {
+		// 	console.log(data.rule, post._id, "нет у тебя в избранных")
+		// }
+
+	}
+
+	const addInFavoritesClick = async (id) => {
+		try {
+			const add = await addInFavorites(id).unwrap()
+			console.log({ add })
+			dispatch(addMessage({
+				message: "запись " + add.post.title + " добавлена в ваше избранное",
+				status: "success"
+			}))
+		}
+		catch (error) {
+			console.log(error.data.message)
+			dispatch(addMessage({
+				message: error.data.message,
+				status: "error"
+			}))
+		}
+	}
+
+	const removeInFavoritesClick = async (id) => {
+		try {
+			const remove = await removeInFavorites(id).unwrap()
+			console.log({ remove })
+			dispatch(addMessage({
+				message: "запись " + remove.post.title + " удалена из ваших избранных",
+				status: "success"
+			}))
+		}
+		catch (error) {
+			console.log(error.data.message)
+			dispatch(addMessage({
+				message: error.data.message,
+				status: "error"
+			}))
+		}
+	}
+	const removePostClick = async (id) => {
+		try {
+			const backState = await removePost(id).unwrap()
+			console.log(backState)
+			dispatch(addMessage({
+				message: "Пост " + backState.post.title + " удален",
+				status: "success"
+			}))
+			console.log({ backState })
+		} catch (error) {
+			console.log(error.data.message)
+			dispatch(addMessage({
+				message: error.data.message,
+				status: "error"
+			}))
+		}
+	}
+
 
 	// if (checkOptions) {
 	// 	console.log(data.rule, post._id, "есть доступ для редактирования")
@@ -66,11 +160,11 @@ export const PostMini = ({ post, noProfile = false }) => {
 					{data ? <PostSettins>
 						{checkOptions ? <>
 							{/* <SettingsItem icon={"close"} name={"Заблокировать"} /> */}
-							<SettingsItem icon={"read"} name={"Редактировать"} />
-							<SettingsItem icon={"delete"} name={"Удалить"} />
+							<SettingsItem icon={"read"} name={"Редактировать"} onClick={() => nav("/edit/" + post._id)} />
+							<SettingsItem icon={"delete"} name={"Удалить"} onClick={() => setOpen(prev => !prev)} />
 						</> : null
 						}
-						{!checkInFavorites ? <SettingsItem icon={"favorite"} name={"В избранное"} /> : <SettingsItem icon={"close"} name={"Удалить из избранных"} />}
+						{!checkInFavorites ? <SettingsItem icon={"favorite"} name={"В избранное"} onClick={() => addInFavoritesClick(post._id)} /> : <SettingsItem icon={"close"} name={"Удалить из избранных"} onClick={() => removeInFavoritesClick(post._id)} />}
 					</PostSettins> : null
 					}
 				</div>
@@ -80,8 +174,8 @@ export const PostMini = ({ post, noProfile = false }) => {
 				<div className={styles.TagsBlock} >
 					{post.tags.map((item, key) => <Tag name={item} key={key} />)}
 				</div>
-			</div >
-
-		</div >
+			</div>
+			<AlertWindow message={`Вы действительно хотите удалить пост`} H={`${post.title}`} inOk={() => removePostClick(post._id)} inOkName={"удалить"} open={isOpen} back={() => setOpen(prev => !prev)} />
+		</div>
 	)
 }

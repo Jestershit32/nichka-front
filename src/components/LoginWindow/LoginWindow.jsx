@@ -1,8 +1,6 @@
 
 import { useState } from "react"
-import { login } from "../../redux/slices/myProfile"
-import { useLoginMutation } from "../../redux"
-import { useDispatch, useSelector } from "react-redux"
+import { useLoginMutation, useMyProfileByTokenQuery } from "../../redux"
 import styles from "./LoginWindow.module.scss"
 import { useNavigate } from "react-router-dom"
 
@@ -10,10 +8,9 @@ export const LoginWindow = () => {
 	const [nickname, setNickname] = useState('max32')
 	const [password, setPassword] = useState('1337')
 	const [loginFetch, { error, isLoading }] = useLoginMutation();
-	const dispatch = useDispatch();
-
+	const { data } = useMyProfileByTokenQuery();
 	const nav = useNavigate()
-	const checkUser = useSelector((state) => state.myProfile.user)
+
 
 	const handleNickname = (e) => {
 		setNickname(e.target.value)
@@ -24,9 +21,9 @@ export const LoginWindow = () => {
 
 
 
-	if (checkUser) {
+	if (data) {
 		nav("/")
-		console.log(checkUser)
+		console.log(data)
 	}
 
 
@@ -34,12 +31,12 @@ export const LoginWindow = () => {
 	const handlerAuth = async (obj) => {
 		if (nickname && password) {
 			try {
-				const { _id, token } = await loginFetch(obj).unwrap()
-				dispatch(login({ _id, token }))
+				const { token } = await loginFetch(obj).unwrap()
+				localStorage.setItem("token", token)
 				nav("/")
 			}
 			catch (error) {
-
+				console.log({ error, message: "не получилось не фартануло" })
 			}
 		}
 	}

@@ -9,7 +9,7 @@ const messagesSlice = createSlice({
     reducers: {
         addMessage(state, action) {
             state.messages.push({
-                messuge: action.payload.message,
+                message: action.payload.message,
                 status: action.payload.status
             })
         },

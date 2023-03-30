@@ -1,21 +1,20 @@
 import { Wrapper } from "../components/Wrapper/Wrapper"
-import { List } from "../components/List/List"
-import { PostMini } from "../components/PostMini/PostMini"
 import { Panel } from '../components/Panel/Panel';
 import { Profile } from '../components/Profile/Profile'
 import { PostSettins } from "../components/PostSettins/PostSettins";
 import { SettingsItem } from "../components/SettingsItem/SettingsItem";
-
-
+import { ProfilePosts } from "../components/ProfilePosts/ProfilePosts"
 import { useProfileByIdQuery } from "../redux"
+
 import { useParams } from "react-router-dom"
+
 
 export const ProfilePage = () => {
 
     let { id } = useParams();
 
-    const { data, isLoading } = useProfileByIdQuery(id);
 
+    let { data, isLoading } = useProfileByIdQuery(id);
 
     if (isLoading) {
         return <h1>жди нахуй</h1>
@@ -23,6 +22,7 @@ export const ProfilePage = () => {
     console.log(data)
     return (
         <Wrapper>
+
             <Panel>
                 <PostSettins>
                     <SettingsItem icon={"close"} name={"Заблокировать"} onClick={() => console.log("name")} />
@@ -32,9 +32,7 @@ export const ProfilePage = () => {
                 </PostSettins>
             </Panel>
             <Profile user={data.user} />
-            <List>
-                {data.user.favorites.map((item) => <PostMini noProfile post={item} key={item._id} />)}
-            </List>
+            <ProfilePosts userID={id} postsFav={data.user.favorites} />
         </Wrapper>
     )
 }

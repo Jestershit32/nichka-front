@@ -10,6 +10,8 @@ import { ProfilePage } from "./pages/ProfilePage"
 import { PostPage } from './pages/PostPage'
 import { LoginPage } from './pages/LoginPage'
 import { ErrorPage } from './pages/ErrorPage';
+import { AddPostPage } from "./pages/AddPostPage"
+import { EditPostPage } from "./pages/EditPostPage"
 import {
   createRoutesFromElements,
   createBrowserRouter,
@@ -30,7 +32,10 @@ const BrowserRouter = createBrowserRouter(createRoutesFromElements(
     <Route path="post/:id" element={<PostPage />} errorElement={<ErrorPage />} />
     <Route path="login" element={<LoginPage />} errorElement={<ErrorPage />} />
     <Route path="profile/:id" element={<ProfilePage />} errorElement={<ErrorPage />} />
+    <Route path="create" element={<AddPostPage />} />
     <Route path="404" element={<ErrorPage />} />
+    <Route path="edit/:id" element={<EditPostPage />} />
+
   </>
 ))
 
@@ -41,6 +46,6 @@ root.render(
   <Provider store={store}>
     <RouterProvider router={BrowserRouter} />
   </Provider>
-  // </React.StrictMode>
+  // </React.StrictMode >
 );
 
