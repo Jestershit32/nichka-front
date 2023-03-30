@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'http://localhost:1337/',
+    baseUrl: 'https://nichka-back-s79d-boewrbbd6-jestershit32.vercel.app/',
     prepareHeaders: (headers,) => {
         const token = localStorage.getItem("token")
         // If we have a token set in state, let's assume that we should be passing it.
