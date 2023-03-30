@@ -31,7 +31,7 @@ export const PostPage = () => {
     const [removeFile] = useRemoveFileMutation();
     const dispatch = useDispatch()
     if (post.isLoading) {
-        return (<h1>жди нахуй</h1>)
+        return (<h1>*</h1>)
     }
 
 

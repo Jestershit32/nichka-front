@@ -4,7 +4,7 @@ import { Pagination } from "./Pagination/Pagination"
 
 export const List = ({ isLoading, children, pages, pageNumbSet, activ }) => {
 	if (isLoading) {
-		return <h1>жди</h1>
+		return <h1>*</h1>
 	}
 
 	return (

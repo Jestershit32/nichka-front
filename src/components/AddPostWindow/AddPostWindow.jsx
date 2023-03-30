@@ -62,9 +62,9 @@ export const AddPostWindow = () => {
 				tags
 			})
 			if (backAlertPost?.error) {
-				console.log(backAlertPost)
+				// console.log(backAlertPost)
 				dispatch(setError({ errors: backAlertPost.error.data }))
-				throw ("пост не загрузился")
+				throw new Error("пост не загрузился")
 			}
 			if (inputFile.current.files.length === 0) {
 				dispatch(setError({ errors: [{ msg: "файл не загружен" }] }))
@@ -75,9 +75,9 @@ export const AddPostWindow = () => {
 			const backAlertFile = await uploadFile({ body: formData, id: backAlertPost.data.post._id })
 
 			if (backAlertFile?.error) {
-				console.log(backAlertFile.error.data.message)
+				// console.log(backAlertFile.error.data.message)
 				dispatch(setError({ errors: [{ msg: backAlertFile.error.data.message }] }))
-				throw ("фаил не загрузился")
+				throw new Error("фаил не загрузился")
 			} else {
 				console.log("пост загружен")
 			}

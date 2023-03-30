@@ -45,7 +45,7 @@ export const LoginWindow = () => {
 
 
 	if (isLoading) {
-		return <h1> жди нахуй</h1>
+		return <h1>*</h1>
 	}
 
 

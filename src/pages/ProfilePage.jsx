@@ -17,7 +17,7 @@ export const ProfilePage = () => {
     let { data, isLoading } = useProfileByIdQuery(id);
 
     if (isLoading) {
-        return <h1>жди нахуй</h1>
+        return <h1>*</h1>
     }
     console.log(data)
     return (
@@ -25,10 +25,10 @@ export const ProfilePage = () => {
 
             <Panel>
                 <PostSettins>
-                    <SettingsItem icon={"close"} name={"Заблокировать"} onClick={() => console.log("name")} />
+                    {/* <SettingsItem icon={"close"} name={"Заблокировать"}/>
                     <SettingsItem icon={"read"} name={"Редактировать"} onClick={() => console.log("блять")} />
                     <SettingsItem icon={"delete"} name={"Удалить"} onClick={() => console.log("блять")} />
-                    <SettingsItem icon={"favorite"} name={"В избранное"} onClick={() => console.log("блять")} />
+                    <SettingsItem icon={"favorite"} name={"В избранное"} onClick={() => console.log("блять")} /> */}
                 </PostSettins>
             </Panel>
             <Profile user={data.user} />

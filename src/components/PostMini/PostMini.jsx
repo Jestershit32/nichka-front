@@ -25,7 +25,7 @@ export const PostMini = ({ post, noProfile = false }) => {
 	const dispatch = useDispatch()
 	const nav = useNavigate()
 	if (isLoading) {
-		return <h1>жди</h1>
+		return <h1>*</h1>
 	}
 	let checkOptions = false;
 	let checkInFavorites = false;

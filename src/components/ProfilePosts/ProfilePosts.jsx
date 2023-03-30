@@ -20,7 +20,7 @@ export const ProfilePosts = ({ userID, postsFav }) => {
 
 
 	if (isLoading) {
-		return <h1>жди</h1>
+		return <h1>*</h1>
 	}
 
 	if (statusTab === "created") {
